@@ -1,38 +1,353 @@
-.App {
-  text-align: center;
+.leaflet-control-attribution {
+  display: none !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.map-section {
+  flex: 1;
+  background-color: #c5d5e0;
+  position: relative;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.toggle-btn {
+  font-weight: 500;
+}
+
+.stat-item {
+  font-size: 15px;
+}
+
+.logo {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+  justify-content: center;
+}
+
+.logo span:first-child {
+  background: linear-gradient(135deg, #33adff, #0066cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.control-group {
+  background: #f0f7ff; /* Изменили с white на цвет фона */
+  border: none; /* Убрали синюю рамку */
+  border-radius: 12px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 5px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.toggle-btn.active {
+  background: #33adff;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Стили для селекторов */
+.control-select {
+  padding: 12px;
+  border: none;
+  background: #33adff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 35px;
+  transition: all 0.3s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.control-select:hover {
+  background-color: #0066cc;
+  transform: translateY(-2px);
+}
+
+.control-select option {
+  background: white;
+  color: #333;
+  padding: 10px;
+}
+.control-btn {
+  padding: 12px;
+  border: none;
+  background: #33adff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.control-btn:hover {
+  background: #0066cc;
+  transform: translateY(-2px);
+}
+
+.control-btn.secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.control-btn.secondary:hover {
+  background: #cccccc;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-row .control-btn {
+  flex: 1;
+}
+
+.stats-group {
+  background: #f0f7ff; /* Изменили с white на цвет фона */
+  border: none; /* Убрали синюю рамку */
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, #33adff 0%, #0066cc 100%);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 102, 204, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-item::after {
+  content: '↓';
+  font-size: 20px;
+  opacity: 0.7;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #c62828;
+  font-size: 14px;
+}
+
+.stat-item {
+  background: #33adff;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.control-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Поля ввода */
+.manual-input-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.control-input {
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.control-input:focus {
+  outline: none;
+  border-color: #33adff;
+  box-shadow: 0 0 0 3px rgba(51, 173, 255, 0.2);
+}
+
+.control-input::placeholder {
+  color: #999;
+}
+
+/* Подсказка для клика */
+.click-hint {
+  background: #e3f2fd;
+  color: #0066cc;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Список точек */
+.points-list {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.points-list h4 {
+  color: #0066cc;
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f7ff;
+}
+
+.point-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: #f5f9fc;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.point-number {
+  background: #0066cc;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.point-coords {
+  flex: 1;
+  color: #333;
+  font-family: monospace;
+}
+
+.point-delete {
+  background: #ff5252;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.point-delete:hover {
+  background: #d32f2f;
+  transform: scale(1.1);
+}
+
+/* Статусы */
+.stat-item {
+  background: #33adff;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #c62828;
+  font-size: 14px;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.control-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
